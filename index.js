@@ -2,6 +2,7 @@ const express = require("express");
 const personRouter = require("./src/routes/person.routes");
 const notFound = require("./src/utils/not-found");
 const erroHandler = require("./src/middlewares/erro-handler.middleware");
+const cors = require("cors");
 
 const app = express();
 
@@ -15,6 +16,7 @@ let persons = [
 ]; //This is your in memory database
 
 app.set("db", persons);
+app.use(cors());
 app.use(express.json());
 app.use("/", personRouter(app));
 
