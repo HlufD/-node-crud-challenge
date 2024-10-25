@@ -1,4 +1,4 @@
-const CustomError = require("../utils/custom-error");
+const CustomError = require("../utils/errors-helpers/custom-error");
 const genenarteRandomid = require("../utils/get-random-id");
 
 const create = (req, res, app) => {

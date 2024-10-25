@@ -1,6 +1,6 @@
 const express = require("express");
 const personRouter = require("./src/routes/person.routes");
-const notFound = require("./src/utils/not-found");
+const notFound = require("./src/utils/errors-helpers/not-found");
 const erroHandler = require("./src/middlewares/erro-handler.middleware");
 const cors = require("cors");
 
@@ -25,10 +25,6 @@ app.use(notFound);
 app.use(erroHandler);
 
 //TODO: Implement crud of person
-
-app.get("/persons", (req, res) => {
-  return res.status(200).send(persons);
-});
 
 if (require.main === module) {
   app.listen(3000, () => console.log(`server is runnig on port 3000`));
