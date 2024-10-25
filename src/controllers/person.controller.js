@@ -1,3 +1,4 @@
+const CustomError = require("../utils/custom-error");
 const genenarteRandomid = require("../utils/get-random-id");
 
 const create = (req, res, app) => {
@@ -11,7 +12,7 @@ const create = (req, res, app) => {
 
   db.push(body);
 
-  return res.status(201).json(body);
+  return res.status(200).json(body);
 };
 
 const findAll = (req, res, app) => {
@@ -25,6 +26,10 @@ const findOne = (req, res, app) => {
 
   const person = db.find((person) => person.id === id);
 
+  if (!person) {
+    throw new CustomError(`person with id ${id} was not found`, 404);
+  }
+
   return res.status(200).json(person);
 };
 
@@ -36,6 +41,10 @@ const update = (req, res, app) => {
   const db = app.get("db");
 
   const index = db.findIndex((person) => person.id === id);
+
+  if (index == -1) {
+    throw new CustomError(`person with id ${id} was not found`, 404);
+  }
 
   body.id = id;
 
@@ -50,6 +59,10 @@ const remove = (req, res, app) => {
   const db = app.get("db");
 
   const index = db.findIndex((person) => person.id === id);
+
+  if (index == -1) {
+    throw new CustomError(`person with id ${id} was not found`, 404);
+  }
 
   db.splice(index, 1);
   return res.status(204).end();

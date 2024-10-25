@@ -15,16 +15,18 @@ module.exports = (app) => {
   router
     .route("/person")
     .get((req, res) => findAll(req, res, app))
-    .post(validationMiddleware(PersonSchema), (req, res) =>
-      create(req, res, app)
-    );
+    .post([
+      validationMiddleware(PersonSchema),
+      (req, res) => create(req, res, app),
+    ]);
 
   router
     .route("/person/:id")
     .get((req, res) => findOne(req, res, app))
-    .put(validationMiddleware(PersonSchema), (req, res) =>
-      update(req, res, app)
-    )
+    .put([
+      validationMiddleware(PersonSchema),
+      (req, res) => update(req, res, app),
+    ])
     .delete((req, res) => remove(req, res, app));
 
   return router;

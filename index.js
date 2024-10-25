@@ -1,5 +1,7 @@
 const express = require("express");
 const personRouter = require("./src/routes/person.routes");
+const notFound = require("./src/utils/not-found");
+const erroHandler = require("./src/middlewares/erro-handler.middleware");
 
 const app = express();
 
@@ -15,6 +17,10 @@ let persons = [
 app.set("db", persons);
 app.use(express.json());
 app.use("/", personRouter(app));
+
+// error handler middlewares
+app.use(notFound);
+app.use(erroHandler);
 
 //TODO: Implement crud of person
 
